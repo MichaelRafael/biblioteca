@@ -1,6 +1,7 @@
 package br.com.fuctura.biblioteca.models;
 
 import br.com.fuctura.biblioteca.enuns.Tamanho;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -16,6 +17,7 @@ public class Livro {
 
     private Tamanho tamanho;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
