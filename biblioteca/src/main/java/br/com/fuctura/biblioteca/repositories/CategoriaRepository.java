@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
 
         public Optional<Categoria> findByGenero(String genero);
+        public Optional<Categoria> findByGeneroContainingIgnoreCase(String genero);
+
+
 }

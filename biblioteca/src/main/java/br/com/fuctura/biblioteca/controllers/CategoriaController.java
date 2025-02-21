@@ -34,6 +34,12 @@ public class CategoriaController {
         return ResponseEntity.ok().body(modelMapper.map(cat, CategoriaDto.class));
     }
 
+    @GetMapping(value = "/nome/{genero}")
+    public ResponseEntity<CategoriaDto> findByNome(@PathVariable String genero) {
+        Categoria cat = categoriaService.findByGenero(genero);
+        return ResponseEntity.ok().body(modelMapper.map(cat, CategoriaDto.class));
+    }
+
     @GetMapping
     public ResponseEntity<List<CategoriaDto>> findAll() {
         List<Categoria> list = categoriaService.findAll();

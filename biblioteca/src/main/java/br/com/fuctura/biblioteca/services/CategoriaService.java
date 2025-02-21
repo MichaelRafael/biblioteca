@@ -25,6 +25,14 @@ public class CategoriaService {
         //return cat.orElseThrow(() -> new ObjectNotFoundException("Categoria não Encontrada"));
     }
 
+    public Categoria findByGenero(String genero) {
+        Optional<Categoria> cat = categoriaRepository.findByGeneroContainingIgnoreCase(genero);
+        if (cat.isPresent()) {
+            return cat.get();
+        }
+        throw new ObjectNotFoundException("Categoria não Encontrada");
+    }
+
     public List<Categoria> findAll() {
         return categoriaRepository.findAll();
     }
@@ -50,6 +58,7 @@ public class CategoriaService {
         }
         categoriaRepository.deleteById(id);
     }
+
 
     private void findByGenero(Categoria categoria) {
         Optional<Categoria> cat = categoriaRepository.findByGenero(categoria.getGenero());
