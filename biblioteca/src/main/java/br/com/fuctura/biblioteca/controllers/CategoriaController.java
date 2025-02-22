@@ -9,12 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/categoria")
-public class CategoriaController {
+@CrossOrigin("*")
+public class CategoriaController implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     //@GetMapping("/{id}") = findById
     //@GetMapping = findAll
