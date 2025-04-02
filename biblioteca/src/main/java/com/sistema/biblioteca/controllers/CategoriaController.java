@@ -1,12 +1,16 @@
 package com.sistema.biblioteca.controllers;
 
+import com.sistema.biblioteca.dtos.CategoriaDTO;
 import com.sistema.biblioteca.models.Categoria;
 import com.sistema.biblioteca.services.CategoriaService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("categoria")
@@ -16,22 +20,26 @@ public class CategoriaController {
     @Autowired
     private CategoriaService categoriaService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @GetMapping("/{id}")
-    public Categoria findById(@PathVariable Integer id) {
+    public ResponseEntity<CategoriaDTO> findById(@PathVariable Integer id) {
         Categoria cat = categoriaService.findById(id);
-        return cat;
+        return ResponseEntity.ok().body(modelMapper.map(cat, CategoriaDTO.class));
     }
 
     @GetMapping
-    public List<Categoria> findAll() {
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
         List<Categoria> list = categoriaService.findAll();
-        return list;
+        return ResponseEntity.ok().body(list.stream().map(categoria -> modelMapper.map(categoria, CategoriaDTO.class)).collect(Collectors.toList()));
     }
 
     @PostMapping
-    public Categoria save(@RequestBody Categoria categoria) {
-        Categoria cat = categoriaService.save(categoria);
-        return cat;
+    public ResponseEntity<CategoriaDTO> save(@RequestBody CategoriaDTO categoriaDTO)  {
+        categoriaDTO.setId(null);
+        Categoria cat = categoriaService.save(modelMapper.map(categoriaDTO, Categoria.class));
+        return ResponseEntity.ok().body(modelMapper.map(cat, CategoriaDTO.class));
     }
 
     @PutMapping("/{id}")

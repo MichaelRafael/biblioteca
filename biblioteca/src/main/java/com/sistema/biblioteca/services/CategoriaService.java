@@ -1,5 +1,7 @@
 package com.sistema.biblioteca.services;
 
+import com.sistema.biblioteca.dtos.CategoriaDTO;
+import com.sistema.biblioteca.exceptions.ObjectNotFoundException;
 import com.sistema.biblioteca.models.Categoria;
 import com.sistema.biblioteca.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +18,17 @@ public class CategoriaService {
 
     public Categoria findById(Integer id) {
         Optional<Categoria> cat = categoriaRepository.findById(id);
-        return cat.orElse(null);
+        if (cat.isPresent()) {
+            return cat.get();
+        }
+        throw new ObjectNotFoundException("Categoria não encontrada");
     }
-
     public List<Categoria> findAll() {
         return categoriaRepository.findAll();
     }
 
     public Categoria save(Categoria categoria) {
+        findByNome(categoria);
         return categoriaRepository.save(categoria);
     }
 
@@ -33,5 +38,12 @@ public class CategoriaService {
 
     public void delete(Integer id) {
         categoriaRepository.deleteById(id);
+    }
+
+    private void findByNome(Categoria categoria) {
+        Optional<Categoria> cat = categoriaRepository.findByNome(categoria.getNome());
+        if (cat.isPresent() && cat.get().getNome().equals(categoria.getNome())) {
+            throw new IllegalArgumentException("Já existe uma categoria com esse nome");
+        }
     }
 }
