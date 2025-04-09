@@ -5,6 +5,7 @@ import com.sistema.biblioteca.exceptions.ObjectNotFoundException;
 import com.sistema.biblioteca.models.Categoria;
 import com.sistema.biblioteca.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,10 +34,17 @@ public class CategoriaService {
     }
 
     public Categoria update(Categoria categoria) {
+        findById(categoria.getId());
+        findByNome(categoria);
         return categoriaRepository.save(categoria);
     }
 
     public void delete(Integer id) {
+        findById(id);
+        Optional<Categoria> cat = categoriaRepository.findById(id);
+        if(!cat.get().getLivros().isEmpty()) {
+            throw new DataIntegrityViolationException("Não é possível excluir uma categoria que possui livros associados");
+        }
         categoriaRepository.deleteById(id);
     }
 
