@@ -54,4 +54,11 @@ public class CategoriaService {
             throw new IllegalArgumentException("Já existe uma categoria com esse nome");
         }
     }
+
+    public void buscarPorNome(String nome) {
+        Optional<Categoria> cat = categoriaRepository.findByNomeContainingIgnoreCase(nome);
+        if (cat.isEmpty()) {
+            throw new ObjectNotFoundException("Categoria não encontrada");
+        }
+    }
 }
