@@ -11,8 +11,6 @@ import java.util.List;
 @Repository
 public interface LivroRepository extends JpaRepository<Livro, Integer> {
 
-    // Custom query methods can be defined here if needed
-    // For example, to find books by category:
     List<Livro> findByCategoriaId(Integer categoriaId);
     @Query("SELECT obj FROM Livro obj WHERE obj.categoria.id =:categoriaId")
     List<Livro> findAllLivrosByCategoriaId(@Param(value = "categoriaId") Integer categoriaId);
