@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface LivroRepository extends JpaRepository<Livro, Integer> {
@@ -16,4 +17,7 @@ public interface LivroRepository extends JpaRepository<Livro, Integer> {
     List<Livro> findAllLivrosByCategoriaId(@Param(value = "categoriaId") Integer categoriaId);
 
     List<Livro> findByCategoriaNomeContainingIgnoreCase(String nomeCategoria);
+
+    Optional<Livro> findByTitulo(String titulo);
+
 }

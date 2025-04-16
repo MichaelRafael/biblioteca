@@ -1,6 +1,8 @@
 package com.sistema.biblioteca.services;
 
+import com.sistema.biblioteca.dtos.LivroDTO;
 import com.sistema.biblioteca.exceptions.ObjectNotFoundException;
+import com.sistema.biblioteca.models.Categoria;
 import com.sistema.biblioteca.models.Livro;
 import com.sistema.biblioteca.repositories.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,4 +37,26 @@ public class LivroService {
         categoriaService.buscarPorNome(nomeCategoria);
         return livroRepository.findByCategoriaNomeContainingIgnoreCase(nomeCategoria);
     }
+
+    public Livro save(Integer idCat, LivroDTO livroDTO) {
+        livroDTO.setId(null);
+        Categoria categoria = categoriaService.findById(idCat);
+        livroDTO.setCategoria(categoria);
+        return livroRepository.save(new Livro(livroDTO));
+    }
+
+
+    public Livro update(Integer idCat, LivroDTO livroDTO) {
+        findById(livroDTO.getId());
+        livroDTO.setId(livroDTO.getId());
+        Categoria categoria = categoriaService.findById(idCat);
+        livroDTO.setCategoria(categoria);
+        return livroRepository.save(new Livro(livroDTO));
+    }
+
+    public void delete(Integer id) {
+        findById(id);
+        livroRepository.deleteById(id);
+    }
 }
+

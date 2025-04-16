@@ -1,9 +1,10 @@
 package com.sistema.biblioteca.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sistema.biblioteca.dtos.LivroDTO;
 import com.sistema.biblioteca.enums.Tamanho;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_livro")
@@ -33,6 +34,15 @@ public class Livro {
         this.texto = texto;
         this.categoria = categoria;
         this.tamanho = tamanho;
+    }
+
+    public Livro(LivroDTO livroDTO) {
+        this.id = livroDTO.getId();
+        this.titulo = livroDTO.getTitulo();
+        this.autor = livroDTO.getAutor();
+        this.texto = livroDTO.getTexto();
+        this.categoria = livroDTO.getCategoria();
+        this.tamanho = livroDTO.getTamanho();
     }
 
     public Integer getId() {

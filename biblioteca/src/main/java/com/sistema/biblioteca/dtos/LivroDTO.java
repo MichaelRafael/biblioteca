@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sistema.biblioteca.enums.Tamanho;
 import com.sistema.biblioteca.models.Categoria;
 import com.sistema.biblioteca.models.Livro;
-
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 public class LivroDTO {
 
@@ -16,15 +17,16 @@ public class LivroDTO {
     private Tamanho tamanho;
 
     public LivroDTO() {
+
     }
 
-    public LivroDTO(Integer id, String titulo, String autor, String texto, Tamanho tamanho, Categoria categoria) {
+    public LivroDTO(Integer id, String titulo, String autor, String texto,Tamanho tamanho, Categoria categoria) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.texto = texto;
-        this.categoria = categoria;
         this.tamanho = tamanho;
+        this.categoria = categoria;
     }
 
     public LivroDTO(Livro livro) {
@@ -32,8 +34,8 @@ public class LivroDTO {
         this.titulo = livro.getTitulo();
         this.autor = livro.getAutor();
         this.texto = livro.getTexto();
-        this.categoria = livro.getCategoria();
         this.tamanho = livro.getTamanho();
+        this.categoria = livro.getCategoria();
     }
 
     public Integer getId() {
