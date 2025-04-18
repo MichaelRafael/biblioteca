@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sistema.biblioteca.enums.Tamanho;
 import com.sistema.biblioteca.models.Categoria;
 import com.sistema.biblioteca.models.Livro;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 public class LivroDTO {
 

@@ -1,6 +1,6 @@
 package com.sistema.biblioteca.dtos;
 import org.hibernate.validator.constraints.Length;
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 public class CategoriaDTO {
 

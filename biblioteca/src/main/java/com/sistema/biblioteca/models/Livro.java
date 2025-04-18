@@ -3,7 +3,7 @@ package com.sistema.biblioteca.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sistema.biblioteca.dtos.LivroDTO;
 import com.sistema.biblioteca.enums.Tamanho;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 
 @Entity

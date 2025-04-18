@@ -3,15 +3,19 @@ package com.sistema.biblioteca.controllers;
 import com.sistema.biblioteca.dtos.CategoriaDTO;
 import com.sistema.biblioteca.models.Categoria;
 import com.sistema.biblioteca.services.CategoriaService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Tag(name = "Categoria")
 @RestController
 @RequestMapping("categoria")
 public class CategoriaController {
@@ -23,6 +27,7 @@ public class CategoriaController {
     @Autowired
     private ModelMapper modelMapper;
 
+    
     @GetMapping("/{id}")
     public ResponseEntity<CategoriaDTO> findById(@PathVariable Integer id) {
         Categoria cat = categoriaService.findById(id);
