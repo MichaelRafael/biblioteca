@@ -1,6 +1,7 @@
 package br.com.fuctura.bibliotecan.dtos;
 
 
+import br.com.fuctura.bibliotecan.models.Categoria;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CNPJ;
@@ -25,6 +26,11 @@ public class CategoriaDto {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
+    }
+    public CategoriaDto(Categoria cat) {
+        this.id = cat.getId();
+        this.nome = cat.getNome();
+        this.descricao = cat.getDescricao();
     }
 
     public Integer getId() {
